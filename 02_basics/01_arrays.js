@@ -46,3 +46,5 @@ console.log("C ",myArray)
 
 //Splice goes from the index mentioned to the end includes the end index mentioned
 //SPLICE affects the original array
+
+
