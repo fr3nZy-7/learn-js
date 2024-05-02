@@ -68,3 +68,37 @@ console.log(Object.values(tinderUser));
 console.log(Object.entries(tinderUser)); // returns an array having all the key and values as array inside an array
 
 console.log(tinderUser.hasOwnProperty('isLoggedIn')); // what if we are looping through the object and want to check if a property is there or not.. this return a boolean stating the said prperty is present in the object or not
+
+
+
+// DeStructuring of Object
+const course = {
+    courseName :"JS in Hindi",
+    courseFees : "999",
+    courseInstructor : "Amey"
+}
+
+const {courseName} = course // using course dot courseInstructor frequently might be tidious.. so we can declare like this and directly call property of an object
+console.log(courseName);
+
+// if you feel course Instructor is too big name you can shorten it in the declaration
+const {courseInstructor : ci} = course
+console.log(ci);
+
+
+// API concept for objects
+// json looks like object LOL
+// {
+//     "name":"Amey",
+//     "courseName":"js in hindi",
+//     "price":"free"
+// }
+
+//api may return something like 
+/*
+[
+ {},
+ {},
+ [ {} , {} ]
+]
+*/
