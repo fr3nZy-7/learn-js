@@ -36,3 +36,49 @@ let moduleVar = 20; // This variable is scoped to module1.js
 console.log(moduleVar); // This will throw a ReferenceError because moduleVar is not defined in module2.js
 
 */
+
+
+function one(){
+    const userName = "Amey"
+
+    function two(){
+        const website = "youtube"
+        console.log(userName)
+
+    }
+    // console.log(website);  // error as website variables scope is inside function two only and cant be access outside it
+
+    two()
+}
+
+one()
+
+if(true){
+    const username = "Amey"
+    if(username == "Amey"){
+        const website = " youtube"
+        console.log(username+website);
+    }
+
+    // console.log(website); // error as website variables scope is inside ineer if {}  and cant be access outside it
+}
+// console.log(username); // error as username variables scope is inside 1st if {}..
+
+
+
+
+
+/*    INTERESTING EXAMPLE  HOISTING  */
+
+console.log(addOne(5));  // calling a function before its definition is allowed when it is declared like shown below
+
+function addOne(num){
+    return num+1
+
+}
+
+
+addTwo(5)  // calling fucntion is not allowed if it is defined like shown below .. you can access addTwo before initialization.. it is also called hoisting
+const addTwo = function(num){    // addOne and addTwo both are fucntions.. but addTwo is also called an expression sometimes..
+    return num+2   
+}
