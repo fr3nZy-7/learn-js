@@ -51,3 +51,39 @@ function loginUserMsg(username)
 
 console.log(loginUserMsg("Amey"))
 console.log(loginUserMsg())  // return undefined just logged in.. as username variable was not defined didnt get a value .. giving empty string ("") will retun just logged in
+
+/* -------------------------------- */
+
+// the ... spread operator is also called a rest operator.. it is called rest or spread based on the context where it is going to be used
+
+function calcCartPrice(val1, val2,...num){  // if we give val1 and val2 new params and pass more than 3 arguments.. first 2 arguments are assigned to val1, val2 and 3rd onwards all get clubbed in an array 
+
+    return num
+
+}
+
+console.log(calcCartPrice(2,5,69,58,"abv"));  // we passed multiple values in the function and used the ... rest operator on one variable..
+// this returns an array
+
+
+const user1 = {
+    username: "Amey",
+    salary:10000000
+}
+
+function handleObject(anyObj){
+    console.log(`Username is ${anyObj.username} and salary is ${anyObj.salary}`);  // this has issue if we change the obj property salary to ctc.. then we get undefined as type checking is not being done here
+}
+
+handleObject(user1)
+handleObject({username:"Tambe", salary:"2020202"}) // you can pass the object directly to a fucntion like this
+
+
+const myNewArray = [200,400,600,800]
+
+function return2ndValue(getArray){
+    return getArray[1]
+}
+
+console.log(return2ndValue(myNewArray));
+console.log(return2ndValue(["abc",3,"pqr"])); // passing an array directly
