@@ -1,0 +1,186 @@
+
+https://www.youtube.com/watch?v=ByhtOgF6uYM&list=PLu71SKxNbfoBuX3f4EOACle2y-tRC5Q37&index=25
+
+JS is a single threaded language.
+
+-------------------------------------------------------------
+
+There are 3 execution context 
+1. Global Execution Context 
+2. Function Execution Context
+3. Eval Execution Context (it is also a property of Global Execution Context.. we can say there are 2 execution context)
+
+JS code runs in 2 phases
+1. Memory Creation phase (also called creation phase or memory phase)  --->> memory gets allocated to the variables that we declare.. does get executed
+2. Execution Phase  --->> actual logic get executed
+
+
+-----------------
+EXAMPLE
+-----------------
+
+JS code in a file
+
+let val1 = 10;
+let val2 = 5;
+function addNum(num1, num2) {
+    let total = num1 + num2;
+    return total;
+}
+
+let result1 = addNum(val1, val2);
+let result2 = addNum(15,20);
+---------------
+
+How it gets executed
+
+1. Global Execution / Global Env -> it gets allocated to 'this'
+
+2. Memory Creation phase -> this is also called first cycle
+  
+    val1 -> undefined
+    val2 -> undefined
+    adNum -> definition (entire function block)
+    result1 -> undefined
+    result2 -> undefined 
+
+3. Exeecution Phase ->
+    val1 -> 10
+    val2 -> 5
+    result1 -> 15  THIS IS RECIEVED AFTER LINE 80 to LINE 97 below
+    result2 -> 35
+    function block already allocated above.. this wont be "picked" here
+    Now when we reach line 59 for addNum -> it will create its own execution context
+    
+    addNum -> Execution Context thats is -->> will get a new sandbox that will have a variable environment + execution thread
+    Now we have a sandbox having a new memory creation phase and execution phase for this new execution context created for addNum
+    
+        Execution Context gets CREATED for line 54 to line 57
+        3.1 Memory creation phase
+        val1 -> undefined this val1 and val2 are picked from line 59 and memory is allocated for them.. it becomes num1, num2 of line 54 in execution context
+        val2 -> undefined
+        total -> undefined
+
+        3.2 Execution Context
+        num1 -> 10
+        num2 -> 5
+        total -> 15
+        now we are also returning total.. so in this case the return is happening to the parent execution context.. in this case the global execution context
+        Also adds the result1 into the parent execution context
+        Execution Context gets DELETED for line 54 to line 57
+
+        this is same process will happen for function execution at line 60.. we will get a sandbox having its own memory creation phase and execution phase (a new variable env + execution thread). Same process like in line 86 to 97 will happen and once we return the total we will delete the execution context created for function call of line 60
+
+
+--------------------------------------------------------------------
+CALL STACK
+--------------------------------------------------------------------
+
+
+How things get executed.. LIFO is applied here
+
+
+
+|                |              
+|                |
+|                |
+|                |
+|                |
+|                |
+|                |
+|  addNum()      |          
+------------------
+| GLOBAL Context |
+------------------
+
+in above example, addNum is called twice.. so it will get added in the CALL STACK.. once job is done it will move out. It will get added the second time when we call it again.
+
+But what if we have some thing like this 
+function func1(a,b){
+    func2()
+    x=a+b
+    return x
+}
+result = func1(2,5);
+
+
+|                |              
+|                |
+|                |
+|                |
+|                |
+|                |
+|  func2()       |
+|  func1()       |          
+------------------
+| GLOBAL Context |
+------------------
+
+
+We are calling func2() inside func1().. so func1 gets added to call stack first.. then we called func2 inside func1 so func2 gets added in func1.
+now func2 run ends first and it goes out and then func1 execution ends and it gets out of the call stack last.
+
+Once a function's execution context is completed, its corresponding stack frame is removed from the call stack. This process is typically referred to as "popping" the function off the call stack.
+
+--------------------------------------------------------------------
+
+Execution context theory from chatgpt
+
+The working of the JavaScript works on three phases:
+1. Global Execution Context
+2. Memory phase / Creation phase
+3. Execution phase
+
+Phase 1: Global Execution Context
+The value of `this` keyword is set to Global Execution Context (which is an empty Object in NODEJS environment, & window object in browser environment)
+
+Phase 2: Memory phase
+During this phase, JS engine scans the code and assigns the initial values for the variables , functions, etc.. For variables they are 'undefined' and for functions they are set to their function definition
+
+Phase 3: Execution phase
+After the creation phase completed, the execution phase begins where actual values of the variables are set. And when the functions are called it creates a new 'Function Execution' context which consists of two phases (they works same as explained above but only for the particular function scope):
+1. Memory phase 
+2. Execution phase 
+The return value of the 'Function Execution' context is passed to the Global Execution Context
+
+
+1. Parsing: The JavaScript engine first parses the source code to understand its syntax and structure. This involves breaking down the code into individual tokens and building an Abstract Syntax Tree (AST) representation of the code.
+2. Compilation: After parsing, the JavaScript engine compiles the code into executable bytecode or machine code. This compilation process may involve optimizations to improve performance.
+3. Execution: Once the code is compiled, it is executed line by line. During execution, variables are initialized, functions are called, and operations are performed according to the logic of the code.
+4. Execution Context: JavaScript code is executed within an execution context, which consists of the scope chain, variable environment, and this binding. Each function call creates a new execution context, which is pushed onto the call stack.
+5. Event Loop (for asynchronous code): In environments like web browsers, JavaScript code often includes asynchronous operations such as timers, AJAX requests, or event listeners. These asynchronous operations are managed by the event loop, which continuously checks for tasks in the event queue and executes them when the call stack is empty.
+6. Memory Management: During execution, the JavaScript engine manages memory allocation and garbage collection to ensure efficient use of memory resources. Unused objects are automatically identified and removed from memory through garbage collection.
+
+
+---------------------------------------------------------------------
+
+CAll stack theory from chat gpt
+
+The JavaScript call stack is a mechanism used by the JavaScript engine to manage function calls in a single-threaded environment. When a script executes, it operates through a series of function calls, and each function call creates a stack frame that contains information about the function's execution context, including local variables, parameters, and the return address.
+Here's how the call stack works:
+
+Function Invocation: When a function is called in JavaScript, a new stack frame is created for that function and pushed onto the call stack. The function's code then starts executing within this stack frame.
+
+Nested Function Calls: If a function calls another function, a new stack frame is created for the called function, and it's pushed onto the top of the call stack. This process continues for nested function calls.
+
+Execution: Functions are executed in a Last-In-First-Out (LIFO) order. This means that the most recently pushed function onto the stack is the one that executes first, and it remains on the stack until it completes its execution.
+
+Return: When a function completes its execution, its stack frame is popped off the call stack, and control returns to the function that invoked it. The JavaScript engine then continues executing the code from where it left off.
+
+Stack Overflow: If the call stack grows too large due to excessive recursion or deeply nested function calls, it can lead to a stack overflow error, indicating that the call stack has exceeded its maximum size.
+
+The call stack is a fundamental concept in JavaScript's execution model and plays a crucial role in understanding how function calls are managed and executed within the language. Additionally, it's important to note that JavaScript's single-threaded nature means that only one operation can be executed at a time, and the call stack helps enforce this single-threaded execution model.
+
+Once a function's execution context is completed, its corresponding stack frame is removed from the call stack. This process is typically referred to as "popping" the function off the call stack.
+
+When a function finishes executing, the JavaScript engine removes its stack frame from the top of the call stack, allowing the execution to return to the function that invoked it. This ensures that the JavaScript engine can efficiently manage function calls and maintain control flow within the program.
+
+So, when we say a function "moves out of the call stack," it means that its execution context has ended, and its stack frame has been popped off the call stack, returning control to the calling function or the global execution context if there are no more functions left to execute.
+
+the call stack is typically a single, linear structure that represents the sequence of function calls being executed in a program. However, nested function calls can create a hierarchical structure within the call stack.
+
+When a function calls another function, a new stack frame for the called function is added on top of the current stack frame, creating a nested structure. If the called function in turn calls another function, another stack frame is added on top, and so on.
+
+While this creates a nested structure within the call stack, it's still fundamentally a single call stack. Each stack frame maintains a reference to the stack frame below it, allowing the JavaScript engine to unwind the stack and return control to the appropriate functions as each one completes its execution.
+
+So, while the call stack can have a nested structure due to nested function calls, it's not multiple independent stacks; it's still a single call stack representing the sequence of function calls.
