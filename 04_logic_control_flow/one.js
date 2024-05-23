@@ -8,6 +8,8 @@ is equal to ==
 Not equal to !=
 Is equalt to But checks datatype as well ===
 Is not equal to and checks the datatype as well !==
+Logical AND &&
+Login OR ||
 */
 
 // if statement
@@ -40,3 +42,26 @@ if(balance>500) console.log("test"),console.log("test2");
 
 
 //Nested If and else 
+
+if (balance<500) {
+    console.log("Balance is less than 500");
+} else if(balance < 750){
+    console.log("Balance is less than 750");
+} else if(balance < 900){
+    console.log("Balance is less than 900");
+} else{
+    console.log("Balance is 1000 or above");
+}
+
+const userLoggedIn = true;
+const debitCard=true;
+const loggedInFromGoogle = false;
+const loggedInFromEmail = true;
+
+if(loggedInFromEmail || loggedInFromGoogle){
+    console.log("User is logged in");
+}
+
+if(userLoggedIn && debitCard){
+    console.log("Allow to purchase course");
+}
