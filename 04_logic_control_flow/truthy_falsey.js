@@ -41,12 +41,14 @@ if(Object.keys(emptyObj).length === 0){ // here Object.keys(emptyObj) returns in
 }
 
 //NULLish Coalescing Operator (??) - keywords of interest here are null and undefined
+// Nullish coalescing operator is a safety check it avoid assigning a null value to a variable
+// we will use it to check if a variable is geting null then we would do some db call to get a latest value or somthing similar
 
 let val1;
 // val1 = 5 ?? 10 // in this case it will pick 5 becuase we are assigning some value here.
 val1 = null ?? 10 // in this case it will pick 10 and the Nullish coalescing operator is a safety check it avoid assigning a null value to a variable
 // in real life we may use it something like
-// val1 = null ?? dbFuncCall(xxx) basically we will use it to check if a variable is geeting null then we would do some db call to get a latest value or somthing similar
+// val1 = null ?? dbFuncCall(xxx) basically we will use it to check if a variable is geting null then we would do some db call to get a latest value or somthing similar
 // val1 = undefined ?? 15
 // val1 = null ?? 10 ?? 20 // we can use it nultiple times as well.. 
 // its a safety net / fallback to handle our errors
