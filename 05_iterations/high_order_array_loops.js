@@ -50,7 +50,7 @@ const myObj = {
 }
 
 // for (const key of myObj) {
-//     console.log(key); // we get error... object is ot iteratable
+//     console.log(key); // we get error... object is not iteratable
     
 // }
 
