@@ -40,3 +40,17 @@ for (const key of map) {
 for (const [key, value] of map) {
     console.log(key + " represents " + value); 
 }
+
+// for of on Object
+
+const myObj = {
+    'game1' : 'NFS',
+    'game2' : 'PES'
+
+}
+
+// for (const key of myObj) {
+//     console.log(key); // we get error... object is ot iteratable
+    
+// }
+
